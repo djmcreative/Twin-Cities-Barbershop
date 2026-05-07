@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Twin Cities Barber Co. — Look Better, Feel Better. South Minneapolis.</title>
+<meta name="description" content="Twin Cities Barber Co. — a traditional barbershop with modern style in the heart of South Minneapolis. Sharp cuts, hot towel shaves, and the kind of welcome that brings you back." />
+<link rel="icon" type="image/png" href="assets/logos/skull.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bungee&family=Bungee+Inline&family=Lobster&family=Oswald:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Bitter:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0d3e51;
+    --teal-deep: #082a38;
+    --teal-light: #1a5670;
+    --yellow: #ebb323;
+    --yellow-bright: #f5c842;
+    --red: #e8412a;
+    --red-deep: #c43520;
+    --cream: #f5ead4;
+    --cream-2: #ebdec0;
+    --bone: #e8dcb8;
+    --ink: #0a1c25;
+    --line: rgba(245, 234, 212, 0.18);
+    --line-y: rgba(235, 179, 35, 0.4);
+
+    --display: 'Alfa Slab One', serif;
+    --tuscan: 'Bungee Inline', 'Bungee', sans-serif;
+    --script: 'Lobster', cursive;
+    --sans: 'Oswald', 'Arial Narrow', sans-serif;
+    --body: 'Bitter', Georgia, serif;
+    --mono: 'DM Mono', ui-monospace, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--teal);
+    color: var(--cream);
+    font-family: var(--body);
+    font-weight: 400;
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Halftone/noise overlay for that printed-poster vibe */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  ::selection { background: var(--yellow); color: var(--ink); }
+
+  img { display: block; max-width: 100%; }
+
+  /* ========= STRIPED DIVIDER (signature element) ========= */
+  .stripes {
+    height: 14px;
+    background: repeating-linear-gradient(
+      135deg,
+      var(--red) 0 16px,
+      var(--cream) 16px 32px,
+      var(--teal-deep) 32px 48px,
+      var(--cream) 48px 64px
+    );
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .underline-stripe {
+    height: 6px;
+    background: var(--red);
+    margin: 2px 0;
+  }
+
+  /* ========= NAV ========= */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 18px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(8, 42, 56, 0.0);
+    transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  }
+  .nav.scrolled {
+    background: rgba(8, 42, 56, 0.96);
+    padding: 12px 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    border-bottom: 2px solid var(--yellow);
+  }
+
+  .nav-mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-mark img {
+    height: 44px;
+    width: auto;
+  }
+  .nav-mark .name {
+    font-family: var(--script);
+    color: var(--yellow);
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  .nav-mark .sub {
+    font-family: var(--sans);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .nav-mark .stack { display: flex; flex-direction: column; }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--yellow-bright); }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--red) !important;
+    color: var(--cream) !important;
+    padding: 10px 18px;
+    border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--yellow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+  }
+  .nav-cta:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--yellow);
+    color: var(--cream) !important;
+  }
+  .nav-cta::after { display: none; }
+
+  .menu-toggle {
+    display: none;
+    background: var(--yellow);
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    padding: 8px 14px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--red);
+  }
+
+  /* ========= HERO ========= */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    padding: 120px 36px 60px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(235, 179, 35, 0.10), transparent 60%),
+      var(--teal);
+    overflow: hidden;
+  }
+
+  /* Decorative skull silhouette in background */
+  .hero-skull-bg {
+    position: absolute;
+    top: 50%;
+    right: -8%;
+    transform: translateY(-50%);
+    width: 700px;
+    max-width: 60vw;
+    opacity: 0.06;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 8px 16px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--red);
+    opacity: 0;
+    animation: dropIn 0.7s ease 0.1s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: "★";
+    color: var(--red);
+  }
+
+  .hero-headline {
+    font-family: var(--display);
+    font-size: clamp(56px, 9vw, 144px);
+    line-height: 0.85;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: dropIn 0.9s ease 0.25s forwards;
+  }
+  .hero-headline .script {
+    font-family: var(--script);
+    color: var(--yellow);
+    font-size: 0.7em;
+    line-height: 1;
+    text-transform: none;
+    display: inline-block;
+    transform: rotate(-3deg) translateY(-0.05em);
+    letter-spacing: 0;
+    -webkit-text-stroke: 2px var(--ink);
+    text-shadow: 4px 4px 0 var(--red);
+  }
+  .hero-headline .red {
+    color: var(--red);
+    -webkit-text-stroke: 2px var(--ink);
+  }
+  .hero-headline .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--cream);
+  }
+
+  .hero-tagline {
+    font-family: var(--sans);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: dropIn 0.7s ease 0.45s forwards;
+  }
+  .hero-tagline::before, .hero-tagline::after {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--yellow);
+  }
+
+  .hero-sub {
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--cream-2);
+    max-width: 480px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: dropIn 0.7s ease 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: dropIn 0.7s ease 0.75s forwards;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 28px;
+    text-decoration: none;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: 2px solid var(--ink);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: var(--cream);
+    box-shadow: 5px 5px 0 var(--yellow), 5px 5px 0 2px var(--ink);
+  }
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--yellow), 7px 7px 0 2px var(--ink);
+  }
+  .btn-secondary {
+    background: var(--cream);
+    color: var(--ink);
+    box-shadow: 5px 5px 0 var(--teal-deep);
+  }
+  .btn-secondary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--teal-deep);
+  }
+
+  .btn .arrow { transition: transform 0.2s ease; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Hero image card — stacked storefront photo with sign-painter framing */
+  .hero-photo {
+    position: relative;
+    opacity: 0;
+    animation: dropIn 1s ease 0.5s forwards;
+  }
+
+  .hero-photo-frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border: 3px solid var(--ink);
+    background: var(--ink);
+    overflow: hidden;
+    box-shadow:
+      12px 12px 0 var(--yellow),
+      12px 12px 0 3px var(--ink);
+  }
+  .hero-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05);
+  }
+
+  .hero-photo-tag {
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 10px 16px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 2px solid var(--ink);
+    transform: rotate(-4deg);
+    z-index: 2;
+  }
+  .hero-photo-stamp {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    width: 110px;
+    height: 110px;
+    background: var(--red);
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    transform: rotate(8deg);
+    z-index: 2;
+    color: var(--cream);
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    padding: 12px;
+  }
+  .hero-photo-stamp .num {
+    font-family: var(--display);
+    font-size: 26px;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========= MARQUEE ========= */
+  .marquee-bar {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 16px 0;
+    overflow: hidden;
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    position: relative;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+    animation: marquee 32s linear infinite;
+    white-space: nowrap;
+    font-family: var(--display);
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .marquee-track .star {
+    color: var(--red);
+    font-family: var(--sans);
+    font-size: 22px;
+    transform: translateY(-2px);
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ========= SECTION SHARED ========= */
+  section {
+    padding: 110px 36px;
+    position: relative;
+  }
+  .section-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 18px;
+  }
+  .section-eyebrow::before {
+    content: "";
+    width: 30px;
+    height: 2px;
+    background: var(--red);
+  }
+  .section-eyebrow .num {
+    color: var(--cream-2);
+    opacity: 0.7;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(44px, 6vw, 92px);
+    line-height: 0.9;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 28px;
+  }
+  .section-title .script {
+    font-family: var(--script);
+    color: var(--yellow);
+    text-transform: none;
+    font-size: 0.85em;
+    -webkit-text-stroke: 2px var(--ink);
+    text-shadow: 3px 3px 0 var(--red);
+    display: inline-block;
+    transform: rotate(-2deg);
+    margin: 0 0.05em;
+  }
+  .section-title .red { color: var(--red); }
+
+  /* ========= ABOUT ========= */
+  .about {
+    background: var(--teal-deep);
+    border-top: 4px solid var(--ink);
+    border-bottom: 4px solid var(--ink);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 70px;
+    align-items: center;
+  }
+  .about-photo-stack {
+    position: relative;
+    aspect-ratio: 4 / 5;
+  }
+  .about-photo-stack .photo {
+    position: absolute;
+    border: 3px solid var(--ink);
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .about-photo-stack .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .about-photo-stack .photo-back {
+    width: 70%;
+    height: 70%;
+    top: 0;
+    right: 0;
+    box-shadow: 8px 8px 0 var(--red);
+    transform: rotate(2deg);
+  }
+  .about-photo-stack .photo-front {
+    width: 70%;
+    height: 70%;
+    bottom: 0;
+    left: 0;
+    box-shadow: -8px 8px 0 var(--yellow);
+    transform: rotate(-3deg);
+    z-index: 2;
+  }
+
+  .about-body p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--cream-2);
+    margin-bottom: 22px;
+    max-width: 560px;
+  }
+  .about-body p strong {
+    color: var(--yellow);
+    font-weight: 500;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 2px dashed var(--line-y);
+  }
+  .about-feature h4 {
+    font-family: var(--display);
+    font-size: 20px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+  .about-feature p {
+    font-size: 14px;
+    color: var(--cream-2);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* ========= SERVICES ========= */
+  .services {
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .services .section-eyebrow { color: var(--red-deep); }
+  .services .section-eyebrow::before { background: var(--teal); }
+  .services .section-eyebrow .num { color: var(--ink); opacity: 0.5; }
+  .services .section-title { color: var(--ink); }
+  .services .section-title .script {
+    color: var(--red);
+    -webkit-text-stroke: 2px var(--ink);
+    text-shadow: 3px 3px 0 var(--yellow);
+  }
+  .services .section-title .red { color: var(--red); }
+
+  .services-head {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+  .services-head p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 480px;
+    justify-self: end;
+    border-left: 4px solid var(--red);
+    padding-left: 20px;
+  }
+
+  /* Vintage price-board styling for services list */
+  .price-board {
+    background: var(--teal-deep);
+    border: 4px solid var(--ink);
+    box-shadow: 12px 12px 0 var(--red), 12px 12px 0 4px var(--ink);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .price-board::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 10px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--red) 0 14px,
+      var(--cream) 14px 28px
+    );
+    border-bottom: 2px solid var(--ink);
+  }
+  .price-board::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 10px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--red) 0 14px,
+      var(--cream) 14px 28px
+    );
+    border-top: 2px solid var(--ink);
+  }
+  .price-board-header {
+    text-align: center;
+    padding: 36px 20px 18px;
+    border-bottom: 2px solid var(--line);
+    margin-top: 10px;
+  }
+  .price-board-header h3 {
+    font-family: var(--display);
+    color: var(--cream);
+    font-size: clamp(32px, 4vw, 52px);
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  .price-board-header h3 .star {
+    color: var(--yellow);
+    font-family: var(--sans);
+    font-weight: 700;
+    margin: 0 12px;
+  }
+  .price-board-header .sub {
+    font-family: var(--script);
+    color: var(--yellow);
+    font-size: 26px;
+    margin-top: 4px;
+  }
+
+  .service-list {
+    list-style: none;
+    padding: 8px 36px 28px;
+  }
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px dashed rgba(245, 234, 212, 0.25);
+    align-items: baseline;
+    transition: padding 0.25s ease;
+  }
+  .service-row:last-child { border-bottom: none; }
+  .service-row:hover { padding-left: 8px; }
+
+  .service-info .name {
+    font-family: var(--display);
+    color: var(--cream);
+    font-size: clamp(20px, 1.8vw, 28px);
+    text-transform: uppercase;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    margin-bottom: 4px;
+  }
+  .service-row:hover .service-info .name { color: var(--yellow-bright); }
+  .service-info .desc {
+    font-family: var(--body);
+    color: var(--cream-2);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 540px;
+  }
+
+  .service-price {
+    font-family: var(--display);
+    font-size: clamp(28px, 3vw, 42px);
+    color: var(--yellow);
+    line-height: 1;
+    white-space: nowrap;
+    text-shadow: 2px 2px 0 var(--ink);
+  }
+  .service-price .from {
+    display: block;
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--cream-2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    text-shadow: none;
+    opacity: 0.7;
+  }
+
+  .services-note {
+    margin-top: 36px;
+    text-align: center;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.7;
+  }
+  .services-note span { color: var(--red); margin: 0 8px; }
+
+  /* ========= CUTS GALLERY (client work) ========= */
+  .cuts {
+    background: var(--teal);
+    padding: 110px 0;
+  }
+  .cuts .section-inner { padding: 0 36px; }
+
+  .cuts-head {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 50px;
+  }
+  .cuts-head .lead {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--cream-2);
+    max-width: 460px;
+    justify-self: end;
+  }
+
+  .cuts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .cut-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border: 3px solid var(--ink);
+    background: var(--ink);
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.4s ease;
+  }
+  .cut-card:nth-child(2n) { transform: translateY(20px); }
+  .cut-card:nth-child(3n) { transform: translateY(-10px); }
+  .cut-card:hover {
+    transform: translateY(-4px) scale(0.99);
+    box-shadow: 6px 6px 0 var(--yellow);
+  }
+  .cut-card:nth-child(2n):hover { transform: translateY(16px) scale(0.99); }
+  .cut-card:nth-child(3n):hover { transform: translateY(-14px) scale(0.99); }
+
+  .cut-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: contrast(1.05) saturate(0.95);
+  }
+  .cut-card:hover img {
+    transform: scale(1.06);
+    filter: contrast(1.1) saturate(1.05);
+  }
+
+  .cut-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 5px 10px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: 2px solid var(--ink);
+    z-index: 2;
+  }
+  .cut-tag.red { background: var(--red); color: var(--cream); }
+  .cut-tag.cream { background: var(--cream); color: var(--ink); }
+
+  /* ========= VISIT / HOURS ========= */
+  .visit {
+    background: var(--ink);
+    border-top: 4px solid var(--yellow);
+  }
+
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 70px;
+    align-items: start;
+  }
+
+  /* Hours card styled like a vintage shop sign */
+  .hours-sign {
+    background: var(--teal);
+    border: 5px solid var(--ink);
+    padding: 0;
+    box-shadow: 14px 14px 0 var(--red), 14px 14px 0 5px var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .hours-sign-top {
+    background: var(--teal-deep);
+    text-align: center;
+    padding: 28px 20px 22px;
+    border-bottom: 4px solid var(--yellow);
+    position: relative;
+  }
+  .hours-sign-top::before, .hours-sign-top::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translateY(-50%) rotate(45deg);
+    background: var(--yellow);
+    border: 3px solid var(--ink);
+  }
+  .hours-sign-top::before { left: -15px; }
+  .hours-sign-top::after { right: -15px; }
+  .hours-sign-top .open-script {
+    font-family: var(--script);
+    color: var(--yellow);
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-shadow: 3px 3px 0 var(--red);
+  }
+  .hours-sign-top .come-in {
+    font-family: var(--display);
+    color: var(--cream);
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-top: 8px;
+  }
+
+  .hours-list {
+    list-style: none;
+    padding: 28px 32px 32px;
+  }
+  .hours-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 2px dashed rgba(245, 234, 212, 0.2);
+    font-family: var(--sans);
+  }
+  .hours-list li:last-child { border-bottom: none; }
+  .hours-list .day {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+  .hours-list .time {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--cream-2);
+    letter-spacing: 0.05em;
+  }
+  .hours-list .closed {
+    color: var(--red);
+    font-weight: 600;
+    font-style: italic;
+    font-family: var(--body);
+    font-size: 14px;
+  }
+  .hours-list .today {
+    background: rgba(235, 179, 35, 0.08);
+    margin: 0 -16px;
+    padding: 14px 16px;
+    border-left: 4px solid var(--yellow);
+  }
+  .hours-list .today .day { color: var(--yellow-bright); }
+  .hours-list .today .day::before {
+    content: "→ ";
+    color: var(--red);
+  }
+  .hours-list .today .time { color: var(--yellow-bright); }
+
+  .visit-info h3 {
+    font-family: var(--display);
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 0.9;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 28px;
+  }
+  .visit-info h3 .script {
+    font-family: var(--script);
+    text-transform: none;
+    color: var(--yellow);
+    font-size: 0.85em;
+    -webkit-text-stroke: 2px var(--ink);
+    text-shadow: 3px 3px 0 var(--red);
+    display: inline-block;
+    transform: rotate(-2deg);
+  }
+
+  .info-block {
+    padding: 22px 0;
+    border-top: 2px solid var(--line);
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .info-block:last-of-type { border-bottom: 2px solid var(--line); }
+  .info-block .info-label {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    padding-top: 4px;
+  }
+  .info-block .info-val {
+    font-family: var(--body);
+    font-size: 17px;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+  .info-block .info-val a {
+    color: var(--cream);
+    text-decoration: none;
+    border-bottom: 2px solid var(--red);
+    transition: color 0.2s ease;
+  }
+  .info-block .info-val a:hover { color: var(--yellow-bright); }
+
+  .visit-cta { margin-top: 32px; }
+
+  /* ========= POLICIES ========= */
+  .policies {
+    background: var(--teal-deep);
+    border-top: 4px solid var(--ink);
+  }
+  .policies-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 70px;
+  }
+  .policies-side .lead {
+    font-size: 17px;
+    color: var(--cream-2);
+    margin-top: 16px;
+    line-height: 1.65;
+    max-width: 360px;
+  }
+  .policies-side .skull-deco {
+    margin-top: 40px;
+    width: 140px;
+    opacity: 0.4;
+    filter: drop-shadow(4px 4px 0 var(--red));
+  }
+
+  .policy-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 2px solid var(--line);
+    align-items: start;
+  }
+  .policy-row:first-child { border-top: 2px solid var(--line); }
+  .policy-num {
+    font-family: var(--display);
+    font-size: 48px;
+    line-height: 0.85;
+    color: var(--red);
+    -webkit-text-stroke: 2px var(--cream);
+  }
+  .policy-content h4 {
+    font-family: var(--display);
+    font-size: 26px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+  }
+  .policy-content p {
+    font-size: 15px;
+    color: var(--cream-2);
+    line-height: 1.65;
+    max-width: 640px;
+  }
+
+  /* ========= CTA STRIP ========= */
+  .cta-strip {
+    background: var(--red);
+    padding: 90px 36px;
+    text-align: center;
+    border-top: 4px solid var(--ink);
+    border-bottom: 4px solid var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-strip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><circle cx='40' cy='40' r='3' fill='%23f5ead4' opacity='0.15'/></svg>");
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .cta-strip h2 {
+    font-family: var(--display);
+    color: var(--cream);
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-strip h2 .script {
+    font-family: var(--script);
+    color: var(--yellow);
+    text-transform: none;
+    font-size: 0.9em;
+    -webkit-text-stroke: 2px var(--ink);
+    text-shadow: 4px 4px 0 var(--ink);
+    display: inline-block;
+    transform: rotate(-2deg);
+  }
+  .cta-strip p {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-strip .btn {
+    position: relative;
+    z-index: 1;
+    background: var(--yellow);
+    color: var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .cta-strip .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+
+  /* ========= FOOTER ========= */
+  footer {
+    background: var(--ink);
+    padding: 80px 36px 30px;
+    border-top: 4px solid var(--yellow);
+  }
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 50px;
+    padding-bottom: 50px;
+    border-bottom: 2px solid var(--line);
+  }
+  .footer-brand .logo-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .footer-brand .logo-block img {
+    height: 70px;
+    width: auto;
+  }
+  .footer-brand .logo-text {
+    line-height: 1.05;
+  }
+  .footer-brand .logo-text .script {
+    font-family: var(--script);
+    color: var(--yellow);
+    font-size: 32px;
+    display: block;
+  }
+  .footer-brand .logo-text .name {
+    font-family: var(--display);
+    color: var(--cream);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .footer-brand .tagline {
+    font-family: var(--body);
+    font-style: italic;
+    color: var(--cream-2);
+    font-size: 15px;
+    max-width: 320px;
+    margin-bottom: 20px;
+  }
+
+  .footer-col h5 {
+    font-family: var(--display);
+    color: var(--yellow);
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    letter-spacing: 0.05em;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li {
+    margin-bottom: 10px;
+    font-family: var(--body);
+  }
+  .footer-col a, .footer-col span {
+    color: var(--cream-2);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+  }
+  .footer-col a:hover { color: var(--yellow-bright); }
+
+  .footer-bottom {
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream-2);
+    opacity: 0.75;
+  }
+
+  .socials {
+    display: flex;
+    gap: 10px;
+  }
+  .socials a {
+    width: 38px;
+    height: 38px;
+    background: var(--teal);
+    border: 2px solid var(--cream);
+    display: grid;
+    place-items: center;
+    color: var(--cream);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .socials a:hover {
+    background: var(--yellow);
+    color: var(--ink);
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--red);
+  }
+  .socials svg { width: 16px; height: 16px; }
+
+  /* ========= REVEAL ANIMATION ========= */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========= RESPONSIVE ========= */
+  @media (max-width: 1024px) {
+    .hero-grid, .about-grid, .services-head, .cuts-head, .visit-grid, .policies-grid {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+    .services-head p, .cuts-head .lead {
+      justify-self: start;
+    }
+    .cuts-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: span 2; }
+  }
+
+  @media (max-width: 720px) {
+    .nav { padding: 14px 20px; }
+    .nav.scrolled { padding: 10px 20px; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--teal-deep);
+      flex-direction: column;
+      padding: 24px;
+      gap: 18px;
+      border-bottom: 4px solid var(--yellow);
+    }
+    .menu-toggle { display: block; }
+    .nav-mark .sub { display: none; }
+
+    section { padding: 70px 20px; }
+    .hero { padding: 100px 20px 50px; }
+
+    .cuts-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cut-card:nth-child(2n), .cut-card:nth-child(3n) { transform: none; }
+
+    .about-features { grid-template-columns: 1fr; gap: 18px; }
+
+    .price-board-header { padding: 24px 16px 14px; }
+    .service-list { padding: 8px 18px 20px; }
+    .service-row { grid-template-columns: 1fr; gap: 8px; }
+    .service-price { font-size: 24px; text-align: left; }
+
+    .info-block { grid-template-columns: 1fr; gap: 6px; }
+
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-brand { grid-column: span 1; }
+
+    .policy-row { grid-template-columns: 60px 1fr; gap: 14px; }
+    .policy-num { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-mark">
+    <img src="assets/logos/skull.png" alt="Twin Cities Barber Co." />
+    <div class="stack">
+      <span class="name">Twin Cities</span>
+      <span class="sub">Barber Co.</span>
+    </div>
+  </a>
+  <button class="menu-toggle" id="menuToggle">Menu</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">Shop</a>
+    <a href="#services">Services</a>
+    <a href="#cuts">Work</a>
+    <a href="#visit">Visit</a>
+    <a href="https://getsquire.com/booking/book/twin-cities-barber-co-minneapolis" class="nav-cta">Book Now →</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <img src="assets/logos/skull.png" alt="" class="hero-skull-bg" />
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Est. 2023 · South Minneapolis</div>
+      <h1 class="hero-headline">
+        Look <span class="red">Better.</span><br>
+        <span class="outline">Feel</span> <span class="script">Better.</span>
+      </h1>
+      <div class="hero-tagline">A Traditional Barbershop</div>
+      <p class="hero-sub">
+        Sharp cuts, hot-towel shaves, and the kind of welcome that brings you back. Old-school standards, modern style — right in the heart of South Minneapolis.
+      </p>
+      <div class="hero-actions">
+        <a href="https://getsquire.com/booking/book/twin-cities-barber-co-minneapolis" class="btn btn-primary">
+          Book a Chair <span class="arrow">→</span>
+        </a>
+        <a href="#services" class="btn btn-secondary">See the Menu</a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <span class="hero-photo-tag">3745 Bloomington Ave</span>
+      <div class="hero-photo-frame">
+        <img src="assets/shop/storefront.jpg" alt="Twin Cities Barber Co. storefront" />
+      </div>
+      <div class="hero-photo-stamp">
+        <span class="num">25¢</span>
+        Old School<br>Standards
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Sharp Fades</span><span class="star">✦</span>
+    <span>Hot Towel Shaves</span><span class="star">✦</span>
+    <span>Classic Cuts</span><span class="star">✦</span>
+    <span>Beard Sculpts</span><span class="star">✦</span>
+    <span>Walk-Ins Welcome</span><span class="star">✦</span>
+    <span>South Minneapolis</span><span class="star">✦</span>
+    <span>Sharp Fades</span><span class="star">✦</span>
+    <span>Hot Towel Shaves</span><span class="star">✦</span>
+    <span>Classic Cuts</span><span class="star">✦</span>
+    <span>Beard Sculpts</span><span class="star">✦</span>
+    <span>Walk-Ins Welcome</span><span class="star">✦</span>
+    <span>South Minneapolis</span><span class="star">✦</span>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-photo-stack reveal">
+        <div class="photo photo-back"><img src="assets/shop/interior-1.jpg" alt="Inside the shop" /></div>
+        <div class="photo photo-front"><img src="assets/shop/barber-at-work.jpg" alt="Barber at work" /></div>
+      </div>
+
+      <div class="about-body reveal">
+        <div class="section-eyebrow"><span class="num">01</span> About the Shop</div>
+        <h2 class="section-title">Not your ordinary <span class="script">neighborhood</span> barbershop.</h2>
+        <p>
+          At <strong>Twin Cities Barber Co.</strong>, we provide high-quality services in a clean and professional setting. The chairs are old-school. The standards are higher. The conversations are unhurried.
+        </p>
+        <p>
+          Whether it's your first time in or you've been sitting in the same chair for years, you'll get the same thing: real craft, real care, and a sharp finish. No shortcuts, no fuss — just good barbering.
+        </p>
+
+        <div class="about-features">
+          <div class="about-feature">
+            <h4>Skilled Barbers</h4>
+            <p>Trained on the classics — fades, tapers, scissor work, hot-lather shaves — and dialed in on whatever you've been scrolling.</p>
+          </div>
+          <div class="about-feature">
+            <h4>Welcoming Space</h4>
+            <p>Clean, professional, and unpretentious. Bring a kid, bring a dad, bring a date. Everyone's welcome in our chair.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripes"></div>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="services-head">
+      <div class="reveal">
+        <div class="section-eyebrow"><span class="num">02</span> Services &amp; Menu</div>
+        <h2 class="section-title">What we <span class="script">do</span> best.</h2>
+      </div>
+      <p class="reveal">A focused menu, executed precisely. Every service includes the full attention of your barber, a clean finish, and styling product when you want one.</p>
+    </div>
+
+    <div class="price-board reveal">
+      <div class="price-board-header">
+        <h3>Cuts <span class="star">✦</span> Shaves <span class="star">✦</span> Trims</h3>
+        <div class="sub">Twin Cities Barber Co.</div>
+      </div>
+      <ul class="service-list">
+        <li class="service-row">
+          <div class="service-info">
+            <div class="name">The Signature Cut</div>
+            <div class="desc">Consultation, a clean cut tailored to you, hot-towel finish, and a fresh style. The cornerstone of the shop.</div>
+          </div>
+          <div class="service-price"><span class="from">From</span>$40</div>
+        </li>
+        <li class="service-row">
+          <div class="service-info">
+            <div class="name">Skin Fade &amp; Taper</div>
+            <div class="desc">Bald or low-to-high — blended sharp, with crisp lines and clean detail around the ears and neckline.</div>
+          </div>
+          <div class="service-price"><span class="from">From</span>$45</div>
+        </li>
+        <li class="service-row">
+          <div class="service-info">
+            <div class="name">Beard Sculpt</div>
+            <div class="desc">Trim, shape, and define. Hot-lather edges and razor work to lock in a clean line.</div>
+          </div>
+          <div class="service-price"><span class="from">From</span>$25</div>
+        </li>
+        <li class="service-row">
+          <div class="service-info">
+            <div class="name">Hot Towel Shave</div>
+            <div class="desc">The classic — multiple hot towels, traditional lather, straight razor, cool finish. The full ritual.</div>
+          </div>
+          <div class="service-price"><span class="from">From</span>$50</div>
+        </li>
+        <li class="service-row">
+          <div class="service-info">
+            <div class="name">Cut + Beard Combo</div>
+            <div class="desc">Everything dialed in at once. Signature cut paired with a full beard sculpt.</div>
+          </div>
+          <div class="service-price"><span class="from">From</span>$60</div>
+        </li>
+        <li class="service-row">
+          <div class="service-info">
+            <div class="name">Father &amp; Son</div>
+            <div class="desc">Bring the kid. Two cuts back-to-back, same chair energy, lasting tradition.</div>
+          </div>
+          <div class="service-price"><span class="from">From</span>$65</div>
+        </li>
+      </ul>
+    </div>
+
+    <p class="services-note">Pricing varies by barber &amp; length <span>✦</span> Full menu available when booking</p>
+  </div>
+</section>
+
+<!-- ===== CUTS GALLERY ===== -->
+<section class="cuts" id="cuts">
+  <div class="section-inner">
+    <div class="cuts-head">
+      <div class="reveal">
+        <div class="section-eyebrow"><span class="num">03</span> Recent Work</div>
+        <h2 class="section-title">Straight <span class="red">from</span> <span class="script">the chair.</span></h2>
+      </div>
+      <p class="lead reveal">Fades, classic side parts, pomp finishes, beard work, and everything in between. A few from the last few weeks.</p>
+    </div>
+
+    <div class="cuts-grid">
+      <div class="cut-card reveal"><span class="cut-tag">Skin Fade</span><img src="assets/cuts/cut-1.jpg" alt="Skin fade" /></div>
+      <div class="cut-card reveal"><span class="cut-tag red">Fade + Part</span><img src="assets/cuts/cut-2.jpg" alt="Mid fade with hard part" /></div>
+      <div class="cut-card reveal"><span class="cut-tag cream">Pomp + Beard</span><img src="assets/cuts/cut-3.jpg" alt="Classic pompadour with beard" /></div>
+      <div class="cut-card reveal"><span class="cut-tag">Slick Back</span><img src="assets/cuts/cut-4.jpg" alt="Long slick back" /></div>
+      <div class="cut-card reveal"><span class="cut-tag red">Taper</span><img src="assets/cuts/cut-5.jpg" alt="Textured taper" /></div>
+      <div class="cut-card reveal"><span class="cut-tag cream">Classic Cut</span><img src="assets/cuts/cut-6.jpg" alt="Classic side part" /></div>
+      <div class="cut-card reveal"><span class="cut-tag">Pomp</span><img src="assets/cuts/cut-7.jpg" alt="Pomp with beard" /></div>
+      <div class="cut-card reveal"><span class="cut-tag red">Skin Fade</span><img src="assets/cuts/cut-8.jpg" alt="High and tight" /></div>
+      <div class="cut-card reveal"><span class="cut-tag cream">Tape Up</span><img src="assets/cuts/cut-9.jpg" alt="Low taper" /></div>
+      <div class="cut-card reveal"><span class="cut-tag">Beard Detail</span><img src="assets/cuts/cut-10.jpg" alt="Beard sculpt" /></div>
+      <div class="cut-card reveal"><span class="cut-tag red">The Shop</span><img src="assets/shop/interior-2.jpg" alt="Shop interior" /></div>
+      <div class="cut-card reveal"><span class="cut-tag cream">Merch</span><img src="assets/shop/merch-counter.jpg" alt="Merch and front counter" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISIT ===== -->
+<section class="visit" id="visit">
+  <div class="section-inner">
+    <div class="visit-grid">
+      <div class="reveal">
+        <div class="hours-sign">
+          <div class="hours-sign-top">
+            <div class="open-script">Open</div>
+            <div class="come-in">Come On In</div>
+          </div>
+          <ul class="hours-list" id="hoursList">
+            <li data-day="0"><span class="day">Sunday</span><span class="closed">Closed</span></li>
+            <li data-day="1"><span class="day">Monday</span><span class="closed">Closed</span></li>
+            <li data-day="2"><span class="day">Tuesday</span><span class="time">8:00 — 6:30</span></li>
+            <li data-day="3"><span class="day">Wednesday</span><span class="time">8:00 — 6:30</span></li>
+            <li data-day="4"><span class="day">Thursday</span><span class="time">8:00 — 6:30</span></li>
+            <li data-day="5"><span class="day">Friday</span><span class="time">8:00 — 6:30</span></li>
+            <li data-day="6"><span class="day">Saturday</span><span class="time">8:00 — 4:00</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="visit-info reveal">
+        <div class="section-eyebrow"><span class="num">04</span> Find the Shop</div>
+        <h3>Stop in or <span class="script">give us</span> a ring.</h3>
+
+        <div class="info-block">
+          <div class="info-label">Address</div>
+          <div class="info-val">
+            <a href="https://maps.google.com/?q=3745+Bloomington+Ave+S+Minneapolis+MN+55407" target="_blank" rel="noopener">
+              3745 Bloomington Ave S<br>Minneapolis, MN 55407
+            </a>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-label">Phone</div>
+          <div class="info-val"><a href="tel:6123610801">612-361-0801</a></div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-label">Email</div>
+          <div class="info-val"><a href="mailto:tcbarberco@gmail.com">tcbarberco@gmail.com</a></div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-label">Follow</div>
+          <div class="info-val">
+            <a href="https://www.instagram.com/tcbarberco/" target="_blank" rel="noopener">@tcbarberco</a>
+            &nbsp;·&nbsp;
+            <a href="https://www.facebook.com/TwinCitiesBarberCo" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+
+        <div class="visit-cta">
+          <a href="https://getsquire.com/booking/book/twin-cities-barber-co-minneapolis" class="btn btn-primary">
+            Reserve a Chair <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POLICIES ===== -->
+<section class="policies" id="policies">
+  <div class="section-inner">
+    <div class="policies-grid">
+      <div class="policies-side reveal">
+        <div class="section-eyebrow"><span class="num">05</span> House Rules</div>
+        <h2 class="section-title">Keep it <span class="script">smooth.</span></h2>
+        <p class="lead">A few small things that keep the shop running for everyone in the chair — and everyone waiting for it.</p>
+        <img src="assets/logos/skull.png" alt="" class="skull-deco" />
+      </div>
+
+      <div class="reveal">
+        <div class="policy-row">
+          <div class="policy-num">01</div>
+          <div class="policy-content">
+            <h4>Cancellations</h4>
+            <p>If you have to cancel or change your appointment, just let us know. Less than 2 hours before your scheduled time, you'll be required to pre-pay for future appointments and we cannot guarantee a slot. Repeat late cancellations are non-refundable.</p>
+          </div>
+        </div>
+        <div class="policy-row">
+          <div class="policy-num">02</div>
+          <div class="policy-content">
+            <h4>Late Arrivals</h4>
+            <p>Please be courteous to staff and other clients — arrive on time. If you're more than 15 minutes late, we may have to reschedule. Running behind? Give us a call so we can minimize disruption to the rest of the day.</p>
+          </div>
+        </div>
+        <div class="policy-row">
+          <div class="policy-num">03</div>
+          <div class="policy-content">
+            <h4>Walk-Ins</h4>
+            <p>Walk-ins are welcome based on availability, but appointments are strongly recommended — especially Friday afternoons and Saturdays. The fastest way to lock in a chair is to book online.</p>
+          </div>
+        </div>
+        <div class="policy-row">
+          <div class="policy-num">04</div>
+          <div class="policy-content">
+            <h4>Bringing Kids</h4>
+            <p>Father-and-son cuts are a Twin Cities tradition. Kids are welcome any day we're open — just book both chairs together so we can keep things on schedule.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA STRIP ===== -->
+<section class="cta-strip">
+  <h2>Ready for a <span class="script">sharper</span> look?</h2>
+  <p>Pick a chair · Pick a time · We'll handle the rest</p>
+  <a href="https://getsquire.com/booking/book/twin-cities-barber-co-minneapolis" class="btn">
+    Book Your Appointment <span class="arrow">→</span>
+  </a>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-block">
+          <img src="assets/logos/skull.png" alt="Twin Cities Barber Co." />
+          <div class="logo-text">
+            <span class="script">Twin Cities</span>
+            <span class="name">Barber Co.</span>
+          </div>
+        </div>
+        <p class="tagline">"A traditional barbershop, with modern style — in the heart of South Minneapolis."</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Visit</h5>
+        <ul>
+          <li><span>3745 Bloomington Ave S</span></li>
+          <li><span>Minneapolis, MN 55407</span></li>
+          <li><a href="tel:6123610801">612-361-0801</a></li>
+          <li><a href="mailto:tcbarberco@gmail.com">tcbarberco@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#cuts">Recent Work</a></li>
+          <li><a href="#policies">Policies</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Book</h5>
+        <ul>
+          <li><a href="https://getsquire.com/booking/book/twin-cities-barber-co-minneapolis">Reserve Online</a></li>
+          <li><a href="tel:6123610801">Call the Shop</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Twin Cities Barber Co. — All rights reserved.</span>
+      <div class="socials">
+        <a href="https://www.instagram.com/tcbarberco/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/></svg>
+        </a>
+        <a href="https://www.facebook.com/TwinCitiesBarberCo" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.4-2 2-2h2V2h-3c-3 0-4.5 1.8-4.5 4.5V10H6v4h3.5v8H13z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // Mobile menu
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // Highlight today's hours
+  const today = new Date().getDay();
+  const todayLi = document.querySelector(`.hours-list li[data-day="${today}"]`);
+  if (todayLi) todayLi.classList.add('today');
+
+  // Reveal-on-scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
